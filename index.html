@@ -578,6 +578,7 @@
       <div class="menu-title">
        📋 메뉴판
       </div>
+      <p style="font-size: 14px; color: #718096; margin-bottom: 16px; text-align: center;">메뉴를 클릭하거나 급식판에 끌어놓으세요.</p>
       <div class="menu-category">
        <div class="category-label">
         🍚 밥류
@@ -599,7 +600,7 @@
      </div>
      <div class="tray-section">
       <div class="tray-title">
-       🍽️ 내 쟁반
+       🍽️ 급식판
       </div>
       <div class="hint-box" id="hint-box">
        <div class="hint-title">
@@ -670,7 +671,7 @@
         <div class="slot-content" id="slot-soup-content"></div>
        </div>
       </div>
-      <div class="actions"><button class="btn btn-check" id="check-btn">정답 확인</button> <button class="btn btn-reset" id="reset-btn">다시 시작</button> <button class="btn btn-hint" id="hint-btn">힌트 보기</button>
+      <div class="actions"><button class="btn btn-check" id="check-btn">정답 확인</button> <button class="btn btn-reset" id="reset-btn">다시 시작</button> <button class="btn btn-hint" id="hint-btn">힌트 보기</button> <button class="btn btn-hint" id="hide-hint-btn" style="display: none;">힌트 숨기기</button>
       </div>
      </div>
     </div>
@@ -739,7 +740,7 @@
       { id: 33, name: '삼겹살구이', emoji: '🥩', type: '반찬', carb: [0, 3], prot: [1, 3], fat: [3, 3] },
       { id: 34, name: '치킨너겟', emoji: '🍗', type: '반찬', carb: [0, 3], prot: [1, 3], fat: [3, 3] },
       { id: 35, name: '치킨', emoji: '🍗', type: '반찬', carb: [0, 3], prot: [1, 3], fat: [3, 3] },
-      { id: 36, name: '두바이쫀득쿠키', emoji: '🍪', type: '반찬', carb: [0, 3], prot: [1, 3], fat: [3, 3] },
+      { id: 36, name: '두바이초득쿠키', emoji: '🍪', type: '반찬', carb: [0, 3], prot: [1, 3], fat: [3, 3] },
     ];
 
     const GOAL = { carb: 5, prot: 3, fat: 2 };
@@ -892,7 +893,7 @@
           const slotType = zone.dataset.type;
 
           if (item.type !== slotType) {
-            showInlineMessage(`${slotType} 슬롯에는 ${item.type}만 놓을 수 있습니다!`, false);
+            showInlineMessage(`${slotType} 슬롯에는 ${item.type}을 놓을 수 있습니다!`, false);
             return;
           }
 
@@ -1060,6 +1061,8 @@
     function showHint() {
       const hintBox = document.getElementById('hint-box');
       const hintText = document.getElementById('hint-text');
+      const hintBtn = document.getElementById('hint-btn');
+      const hideHintBtn = document.getElementById('hide-hint-btn');
 
       // 검증된 정답 조합 (탄5, 단3, 지2) - 분모 3 기준
       const hintContent = `
@@ -1096,6 +1099,22 @@
 
       hintText.innerHTML = hintContent;
       hintBox.classList.add('show');
+      
+      // 버튼 상태 변경
+      hintBtn.style.display = 'none';
+      hideHintBtn.style.display = 'block';
+    }
+
+    function hideHint() {
+      const hintBox = document.getElementById('hint-box');
+      const hintBtn = document.getElementById('hint-btn');
+      const hideHintBtn = document.getElementById('hide-hint-btn');
+      
+      hintBox.classList.remove('show');
+      
+      // 버튼 상태 변경
+      hintBtn.style.display = 'block';
+      hideHintBtn.style.display = 'none';
     }
 
     function showInlineMessage(message, success) {
@@ -1111,10 +1130,11 @@
     document.getElementById('check-btn').addEventListener('click', checkAnswer);
     document.getElementById('reset-btn').addEventListener('click', resetGame);
     document.getElementById('hint-btn').addEventListener('click', showHint);
+    document.getElementById('hide-hint-btn').addEventListener('click', hideHint);
 
     renderMenuItems();
     setupDropZones();
     calculateTotals();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bac3135658bea10',t:'MTc2Nzg4MDUyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bac4b1126e6c44e',t:'MTc2Nzg4MTU4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
